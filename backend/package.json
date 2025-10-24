@@ -3,13 +3,24 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "convert":"tsc",
-    "start":"node dist/index.js",
+    "convert": "tsc",
+    "start": "node dist/index.js",
     "dev": "pnpm convert && pnpm start"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.17.1"
+  "packageManager": "pnpm@10.17.1",
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "dotenv": "^17.2.3",
+    "drizzle-orm": "^0.44.7"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.1",
+    "drizzle-kit": "^0.31.5",
+    "tsx": "^4.20.6"
+  }
 }
