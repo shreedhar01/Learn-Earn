@@ -8,6 +8,7 @@ import { getNonce, verifySignature, getCurrentUser, logout } from "@/action/auth
 
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function WalletButton() {
     const { publicKey, signMessage, connected } = useWallet();
@@ -33,6 +34,7 @@ export default function WalletButton() {
         const result = await verifySignature(pk, encoded);
         if (result.success) {
             router.push("/dashboard")
+            localStorage.setItem("wallet-verified", "true");
             setUser(pk);
         }
     };
@@ -62,9 +64,13 @@ export default function WalletButton() {
                 )}
                 {user && (
                     <>
-                        {/* <p className="text-lg font-semibold">
-                            ✅ Authenticated as {user}
-                        </p> */}
+                        <Link href="/dashboard">
+                            <p className="text-neutral-500">Navigate to Dashboard</p>
+                            <Button className="w-full px-4 py-2 bg-green-600 text-white rounded">
+                                Go to Dashboard
+                            </Button>
+                        </Link>
+                        {/* <p className="text-neutral-500">Connect Your Wallet</p> */}
                         <Button
                             onClick={handleLogout}
                             className="px-4 py-2 bg-red-500 text-white rounded"
