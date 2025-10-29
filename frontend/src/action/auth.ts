@@ -4,6 +4,9 @@ import nacl from "tweetnacl";
 import bs58 from "bs58";
 import { randomBytes } from "crypto";
 import { cookies } from "next/headers";
+import { db } from "@/db";
+import { eq } from "drizzle-orm";
+import { usersTable } from "@/db/schema";
 
 const NONCE_STORE = new Map<string, string>();
 
@@ -25,9 +28,23 @@ export async function verifySignature(publicKey: string, signature: string) {
 
   if (!verified) throw new Error("Invalid signature");
 
+  // Check if user exists
+  const [existingUser] = await db
+    .select()
+    .from(usersTable)
+    .where(eq(usersTable.solana_address, publicKey));
+
+  // If not, create a new one
+  if (!existingUser) {
+    await db.insert(usersTable).values({
+      solana_address: publicKey,
+      fusd_balance: 100,
+    });
+  }
+
   NONCE_STORE.delete(publicKey);
 
-  // ✅ Set a secure cookie with the wallet address
+  // Set a secure cookie with the wallet address
   (await cookies()).set("wallet-auth", publicKey, {
     httpOnly: true,
     sameSite: "strict",
