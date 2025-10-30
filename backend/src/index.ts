@@ -14,7 +14,7 @@ import portfolioRoute from "./routes/portfolio.routes.js"
 import leaderboardRoute from "./routes/leaderboard.routes.js"
 
 app.use("/api/v1/user",userRoute)
-// app.use("/api/v1/liveData",liveData)
+app.use("/api/v1/liveData",liveData)
 app.use("/api/v1/trade",tradeRoute)
 app.use("/api/v1/portfolio",portfolioRoute)
 app.use("/api/v1/leaderboard",leaderboardRoute)

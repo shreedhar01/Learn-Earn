@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -41,6 +41,7 @@ export default function WalletButton() {
 
     const handleLogout = async () => {
         await logout();
+        localStorage.removeItem("wallet-verified")
         setUser(null);
     };
 
