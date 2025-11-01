@@ -38,7 +38,7 @@ export async function verifySignature(publicKey: string, signature: string) {
   if (!existingUser) {
     await db.insert(usersTable).values({
       solana_address: publicKey,
-      fusd_balance: 100,
+      fusd_balance: (100).toString(),
     });
   }
 
