@@ -70,7 +70,7 @@ export async function generateLeaderBoard() {
             } else {
                 await db.insert(balanceSnapshotsTable).values({
                     user_id: userId,
-                    total_value: totalPortfolioValue,
+                    total_value: totalPortfolioValue.toString(),
                     period: currentPeriod,
                     created_at: new Date(start),
                 });
@@ -100,14 +100,14 @@ export async function generateLeaderBoard() {
                 .insert(leaderboardTable)
                 .values({
                     user_id: userId,
-                    roi_percentage: roi,
+                    roi_percentage: roi.toString(),
                     rank,
                     period,
                     created_at: new Date(),
                 })
                 .onConflictDoUpdate({
                     target: [leaderboardTable.user_id, leaderboardTable.period],
-                    set: { roi_percentage: roi, rank, created_at: new Date() },
+                    set: { roi_percentage: roi.toString(), rank, created_at: new Date() },
                 });
         }
         console.log("Leaderboard generated successfully for period:", period);

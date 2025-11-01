@@ -43,9 +43,9 @@ export async function placeTrade(req: Request, res: Response) {
                 user_id: user.id,
                 symbol: symbol,
                 type: type,
-                price: price,
-                quantity: qty,
-                total: price * qty
+                price: price.toString(),
+                quantity: qty.toString(),
+                total: (price * qty).toString()
               }
             );
 
@@ -54,13 +54,13 @@ export async function placeTrade(req: Request, res: Response) {
             .values({
               user_id: user.id,
               symbol,
-              quantity: qty,
-              avg_buy_price: price
+              quantity: qty.toString(),
+              avg_buy_price: price.toString()
             })
 
           await tx
             .update(usersTable)
-            .set({ fusd_balance: (Number(user.fusd_balance) - (price * qty)) })
+            .set({ fusd_balance: (Number(user.fusd_balance) - (price * qty)).toString() })
             .where(eq(usersTable.id, user.id));
 
         })
@@ -73,24 +73,24 @@ export async function placeTrade(req: Request, res: Response) {
                 user_id: user.id,
                 symbol: symbol,
                 type: type,
-                price: price,
-                quantity: qty,
-                total: price * qty
+                price: price.toString(),
+                quantity: qty.toString(),
+                total: (price * qty).toString()
               }
             );
 
           await tx
             .update(portfolioTable)
             .set({
-              quantity:Number(isPortfolioExist?.quantity ?? 0) + qty,
-              avg_buy_price:(Number(isPortfolioExist?.avg_buy_price ?? 0) + price) / 2,
+              quantity:(Number(isPortfolioExist?.quantity ?? 0) + qty).toString(),
+              avg_buy_price:((Number(isPortfolioExist?.avg_buy_price ?? 0) + price) / 2).toString(),
             })
             .where(eq(portfolioTable.id, isPortfolioExist.id))
 
 
           await tx
             .update(usersTable)
-            .set({ fusd_balance: Number(user.fusd_balance) - (price * qty) })
+            .set({ fusd_balance: (Number(user.fusd_balance) - (price * qty)).toString() })
             .where(eq(usersTable.id, user.id));
 
         })
@@ -118,21 +118,21 @@ export async function placeTrade(req: Request, res: Response) {
                 user_id: user.id,
                 symbol: symbol,
                 type: type,
-                price: price,
-                quantity: qty,
-                total: price * qty
+                price: price.toString(),
+                quantity: qty.toString(),
+                total: (price * qty).toString()
               }
             );
 
         await tx
           .update(portfolioTable)
-          .set({ quantity: portfolioQty - qty })
+          .set({ quantity: (portfolioQty - qty).toString() })
           .where(eq(portfolioTable.user_id, user.id))
 
         await tx
           .update(usersTable)
           .set({
-            fusd_balance: (Number(user.fusd_balance) + (price * qty)),
+            fusd_balance: (Number(user.fusd_balance) + (price * qty)).toString(),
           })
           .where(eq(usersTable.id, user.id));
       })
