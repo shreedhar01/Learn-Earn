@@ -1,7 +1,5 @@
 "use client"
 // import { Button } from "./ui/button"
-import { ThemeSwitcher } from "./ThemeSwitcher"
-import SignIn from "./SignIn"
 import Menu from "@/components/Menu"
 import Link from "next/link"
 import { useEffect, useState } from "react"

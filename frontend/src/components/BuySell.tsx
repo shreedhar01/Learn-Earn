@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useWallet } from "@solana/wallet-adapter-react"
 
 export function BuySell({ symbol }: { symbol: string }) {
@@ -63,12 +63,13 @@ export function BuySell({ symbol }: { symbol: string }) {
             setMessage(res.data?.message || "Order placed.")
             setQuantity("")
             setUsdt("")
-        } catch (err: any) {
+        } catch (err: unknown) {
+            const error = err as AxiosError<{message?:string, error?:string}>
             console.error("Trade error:", err)
             const message =
-                err.response?.data?.message || // ✅ handles backend {message:"..."}
-                err.response?.data?.error ||   // fallback if backend sends "error"
-                err.message                    // fallback if network error
+                error.response?.data?.message || // ✅ handles backend {message:"..."}
+                error.response?.data?.error ||   // fallback if backend sends "error"
+                error.message                    // fallback if network error
 
             setError(message)
         } finally {

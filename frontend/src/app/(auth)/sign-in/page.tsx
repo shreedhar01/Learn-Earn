@@ -1,6 +1,5 @@
 "use client";
 
-import { useState, useEffect, useContext } from "react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 import bs58 from "bs58";
@@ -9,6 +8,7 @@ import { getNonce, verifySignature, getCurrentUser, logout } from "@/action/auth
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 export default function WalletButton() {
     const { publicKey, signMessage, connected } = useWallet();

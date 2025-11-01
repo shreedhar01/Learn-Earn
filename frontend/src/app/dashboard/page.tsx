@@ -18,7 +18,7 @@ interface tradeProps{
 
 
 
-function page() {
+function Page() {
     const { publicKey } = useWallet()
     const [data, setData] = useState<dataProps[]>([])
     const [fusdt, setfusdt] = useState()
@@ -115,4 +115,4 @@ function page() {
     )
 }
 
-export default page
+export default Page
