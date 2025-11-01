@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "tsc",
-    "run": "node -r dotenv/config dist/index.js",
+    "run": "pnpm start && node -r dotenv/config dist/index.js",
     "dev": "tsx watch -r dotenv/config src/index.ts"
   },
   "keywords": [],
