@@ -19,6 +19,6 @@ app.use("/api/v1/trade",tradeRoute)
 app.use("/api/v1/portfolio",portfolioRoute)
 app.use("/api/v1/leaderboard",leaderboardRoute)
 
-app.listen(process.env.PORT,()=>{
+app.listen(process.env.PORT || 3000,()=>{
     console.log(`Server running on port :: ${process.env.PORT}`)
 })

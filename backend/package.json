@@ -5,9 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "tsc",
-    "run": "pnpm start && node -r dotenv/config dist/index.js",
-    "dev": "tsx watch -r dotenv/config src/index.ts"
+    "dev": "tsx watch -r dotenv/config src/index.ts",
+    "build": "tsc",
+    "start": "pnpm run build && node -r dotenv/config dist/index.js"
   },
   "keywords": [],
   "author": "",
